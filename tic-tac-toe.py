@@ -1,4 +1,5 @@
 import random
+import numpy as np
 
 def print_board(board):
     for row in board:
@@ -22,19 +23,12 @@ def check_win(board, player):
 
     return False
 
-def get_empty_cells(board):
-    empty_cells = []
-    for row in range(3):
-        for col in range(3):
-            if board[row][col] == " ":
-                empty_cells.append((row, col))
-    return empty_cells
-
 def main():
     board = [[" " for _ in range(3)] for _ in range(3)]
     players = ["X", "O"]
     current_player = 0
     total_moves = 0
+    win = "Tables"
 
     while True:
         print_board(board)
@@ -47,7 +41,7 @@ def main():
                 break
             col = int(input("Enter column (0-2): "))
         else:
-            empty_cells = get_empty_cells(board)
+            empty_cells = [(row, col) for row in range(3) for col in range(3) if board[row][col] == " "]
             row, col = random.choice(empty_cells)
 
         if board[row][col] == " ":
@@ -57,6 +51,7 @@ def main():
             if check_win(board, players[current_player]):
                 print_board(board)
                 print(f"Player {players[current_player]} wins!")
+                win = f"Player {players[current_player]} wins!"
                 break
 
             if total_moves == 9:
@@ -67,6 +62,10 @@ def main():
             current_player = 1 - current_player
         else:
             print("That cell is already occupied. Try again.")
+
+    print(f"Final Game Board - {win}")
+    np_board = np.array(board)
+    print(np_board)
 
 if __name__ == "__main__":
     main()
