@@ -2,7 +2,7 @@ import random
 import numpy as np
 import pymongo
 
-client = pymongo.MongoClient("mongodb://localhost:27017/")
+client = pymongo.MongoClient("mongodb://mongodb:27017/")
 db = client["tic_tac_toe"]
 record_collection = db["record"]
 
