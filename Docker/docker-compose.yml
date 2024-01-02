@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  tic-tac-toe-app:
+    build: 
+      context: .
+      dockerfile: tic-tac-toe.Dockerfile
+    working_dir: /app/tic-tac-toe
+    command: /bin/bash -c "sleep infinity"
+  mongodb:
+    image: mongo:latest
+    container_name: my_mongodb
+    ports:
+      - "27017:27017"
+      
