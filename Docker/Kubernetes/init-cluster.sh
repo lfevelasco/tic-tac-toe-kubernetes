@@ -1,2 +1,0 @@
-minikube start
-minikube tunnel
