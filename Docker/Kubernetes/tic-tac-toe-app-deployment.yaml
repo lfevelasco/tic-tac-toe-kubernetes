@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.31.2 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: tic-tac-toe-app
+  name: tic-tac-toe-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: tic-tac-toe-app
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.31.2 (HEAD)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/kubernetes-default: "true"
+        io.kompose.service: tic-tac-toe-app
+    spec:
+      containers:
+          - command:
+              - bash
+              - -c
+              - |
+                mkdir /app
+                cd /app
+                git clone https://github.com/juansbarreto/tic-tac-toe
+                cd tic-tac-toe
+                echo "BEFORE"
+                pip install -r requirements.txt
+                echo "AFTER"
+                sleep infinity
+            image: python:3.11.3
+            name: tic-tac-toe-app
+            resources: {}
+            workingDir: /app/tic-tac-toe
+      restartPolicy: Always
+status: {}
